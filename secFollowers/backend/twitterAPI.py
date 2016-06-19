@@ -68,7 +68,7 @@ def secFollowersList(request, screenName, twitter = None):
         access_type = 'public'
 
     json_h = secFollowersJson.objects.filter(
-                csrf_token = request.COOKIES['csrftoken'], 
+                csrf_token = request.POST['csrfmiddlewaretoken'], 
                 access_type = access_type
             )
 
@@ -77,7 +77,7 @@ def secFollowersList(request, screenName, twitter = None):
     json_h = secFollowersJson(
             screen_name = screenName,
             access_type = access_type,
-            csrf_token = request.COOKIES['csrftoken'], 
+            csrf_token = request.POST['csrfmiddlewaretoken'], 
             json = json.dumps(data['users'], ensure_ascii=False)
         )
     json_h.save()
@@ -88,7 +88,7 @@ def secFollowersList(request, screenName, twitter = None):
 def technical(request, access_type):
 
     json_h = secFollowersJson.objects.filter(
-                csrf_token = request.COOKIES['csrftoken'], 
+                csrf_token = request.POST['csrfmiddlewaretoken'], 
                 access_type = access_type
             )
 

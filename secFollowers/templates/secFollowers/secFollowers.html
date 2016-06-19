@@ -15,7 +15,7 @@
 
 </style>
 
-{% if users %}
+
 
 Only 200 followers per user are taken under consideration. Usually that alone exceeds the limit of Twitter API
 <table class="table table-condensed">
@@ -29,7 +29,8 @@ Only 200 followers per user are taken under consideration. Usually that alone ex
 			</form>
 		</td>
 		<td>
-			<form action="/followers/followers/technical" method="get">
+			<form action="/followers/followers/technical{{ dest }}" method="post">
+			{% csrf_token %}
 				<button type="submit" class="btn btn-default">
 					Show technical view
 				</button> 
@@ -42,10 +43,20 @@ Only 200 followers per user are taken under consideration. Usually that alone ex
 </h4>
 <h3>
 	<b>
-		<a href = "/userInfo?screen_name={{ screen_name }}">@{{ screen_name }}</a>
+
+				<form action="/someone/userInfo" method="post">
+				{% csrf_token %}
+					 <button type="submit" 
+					 	name="screen_name" 
+					 	value="{{ screen_name }}" 
+					 	class="btn-link">
+				 		@{{ screen_name }}
+			 		</button>
+					<input type = "hidden" name = "verifier" value = "0" ></input> 
+				</form>
 	</b>
 </h3>
-
+{% if users %}
 
 <table class="table table-condensed">
 <col width="130">
@@ -60,11 +71,22 @@ Only 200 followers per user are taken under consideration. Usually that alone ex
 			<h3>No. of followed people from your followers</h3>
 		</td>
 	</tr>
-	{% for key, value in users %}
+	{% for user, value in users %}
 		<tr>
 			<td class="numeruj"></td>
 			<td>
-				<a href = "/userInfo?screen_name={{ key }}">@{{ key }}</a>
+
+
+				<form action="/someone/userInfo" method="post">
+				{% csrf_token %}
+					 <button type="submit" 
+					 	name="screen_name" 
+					 	value="{{ user }}" 
+					 	class="btn-link">
+				 		@{{ user }}
+			 		</button>
+					<input type = "hidden" name = "verifier" value = "0" ></input> 
+				</form>
 			</td>			
 			<td>
 				{{ value }}

@@ -7,7 +7,7 @@
 
 <a href="{{ auth_url }}" target = "_blank">{{ auth_url }}</a>
 <p/>
-<form action="/authApp" method="post">
+<form action="{{ appURL }}" method="post">
 	{% csrf_token %}
 	<table class="table table-condensed">
 	<col width="200">
@@ -20,7 +20,8 @@
 			</td>
 		</tr>
 	</table>
-	<input type="hidden" value = "{{ appURL }}" name = "appURL" />
+	<!-- <input type="hidden" value = "{{ appURL }}" name = "appURL" /> -->
+	<input type="hidden" value = "1" name = "verifier" />
 
 	 <button
 	 	type="submit" 

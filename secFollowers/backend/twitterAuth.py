@@ -10,24 +10,16 @@ def logout(request):
     data = TwittToken.objects.filter(csrf_token = csrf_token, access_type = 'private')
     data.delete()
 
-def getToken(request):
-    try:
-        return request.POST['csrfmiddlewaretoken'], 'POST'
-    except:
-        return request.COOKIES['csrftoken'], 'COOKIES'
-
 '''
 returns twitter handler if authorized token are available. 
 I case no authorized token are avaiable the url for pin validation will be returned
 '''
 def getAuthHandlerStep1(request):
 
-    csrf_token, origin =  getToken(request)    
+    csrf_token = request.POST['csrfmiddlewaretoken']  
 
     data = TwittToken.objects.filter(csrf_token = csrf_token, access_type = 'private')
     try:
-        if len(data) == 0 and cmp(origin, 'COOKIES') == 0:
-            return False
         if len(data) == 1:
             if data[0].is_authorized == True:
 
@@ -44,8 +36,8 @@ def getAuthHandlerStep1(request):
 
         raise TwythonError('Error during token exchanging / confirmation', -1)
 
-    except TwythonError, TwythonAuthError:
-
+    except TwythonError as e:
+        print e.message
         twitter = Twython(APP_KEY, APP_SECRET)
 
         auth = twitter.get_authentication_tokens()
@@ -61,6 +53,10 @@ def getAuthHandlerStep1(request):
         data.save()
 
         return {'auth_url' : auth['auth_url']}
+
+    except TwythonAuthError as e:
+        print e.messagef
+        return {'auth_url' : False}
 
 
 def getAuthHandlerStep2(request):
@@ -86,7 +82,13 @@ def getAuthHandlerStep2(request):
     data[0].oauth_token_secret = final_step['oauth_token_secret']
     data[0].save()
 
-    return True
+    twitter = Twython(
+            APP_KEY, APP_SECRET,
+            data[0].oauth_token,
+            data[0].oauth_token_secret
+        )
+
+    return twitter
 
 def getTwitterHandle(csrf_token):
 
