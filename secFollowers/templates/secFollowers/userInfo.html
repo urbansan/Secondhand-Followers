@@ -1,0 +1,16 @@
+{% extends "secFollowers/secFollowers_mutual.html" %}
+{% block content %}
+<table class="table table-condensed">
+<col width="250">
+	{% for key, value in user_data %}
+		<tr>
+			<td>
+				{{ key }}
+			</td>
+			<td>
+				{{ value }}
+			</td>			
+		</tr>
+	{% endfor %}
+</table>
+{% endblock %}

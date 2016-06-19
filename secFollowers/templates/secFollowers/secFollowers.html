@@ -1,0 +1,80 @@
+{% extends "secFollowers/secFollowers_mutual.html" %}
+{% block content %}
+<style type="text/css">
+
+	body
+	{
+	    counter-reset: Serial;           /* Set the Serial counter to 0 */
+	}
+
+	.numeruj:after
+	{
+	  counter-increment: Serial;      /* Increment the Serial counter */
+	  content: counter(Serial); /* Display the counter */
+	}
+
+</style>
+
+{% if users %}
+
+Only 200 followers per user are taken under consideration. Usually that alone exceeds the limit of Twitter API
+<table class="table table-condensed">
+	<col width="30">
+	<tr>
+		<td>
+			<form action="/" method="get">
+				<button type="submit" class="btn btn-default">
+					Home
+				</button> 
+			</form>
+		</td>
+		<td>
+			<form action="/followers/followers/technical" method="get">
+				<button type="submit" class="btn btn-default">
+					Show technical view
+				</button> 
+			</form>
+		</td>
+	</tr>
+</table>
+<h4 style="color: red">
+	{{ limits }}
+</h4>
+<h3>
+	<b>
+		<a href = "/userInfo?screen_name={{ screen_name }}">@{{ screen_name }}</a>
+	</b>
+</h3>
+
+
+<table class="table table-condensed">
+<col width="130">
+	<tr>
+		<td>
+			<h3>#</h3>
+		</td>
+		<td>
+			<h3>Twitter handle</h3>
+		</td>			
+		<td>
+			<h3>No. of followed people from your followers</h3>
+		</td>
+	</tr>
+	{% for key, value in users %}
+		<tr>
+			<td class="numeruj"></td>
+			<td>
+				<a href = "/userInfo?screen_name={{ key }}">@{{ key }}</a>
+			</td>			
+			<td>
+				{{ value }}
+			</td>
+		</tr>
+	{% endfor %}
+</table>
+
+{% else %}
+	No relevent data available
+{% endif %}
+
+{% endblock %}
