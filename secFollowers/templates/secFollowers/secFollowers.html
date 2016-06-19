@@ -43,17 +43,16 @@ Only 200 followers per user are taken under consideration. Usually that alone ex
 </h4>
 <h3>
 	<b>
-
-				<form action="/someone/userInfo" method="post">
-				{% csrf_token %}
-					 <button type="submit" 
-					 	name="screen_name" 
-					 	value="{{ screen_name }}" 
-					 	class="btn-link">
-				 		@{{ screen_name }}
-			 		</button>
-					<input type = "hidden" name = "verifier" value = "0" ></input> 
-				</form>
+		<form action="/someone/userInfo" method="post">
+		{% csrf_token %}
+			 <button type="submit" 
+			 	name="screen_name" 
+			 	value="{{ screen_name }}" 
+			 	class="btn-link">
+		 		@{{ screen_name }}
+	 		</button>
+			<input type = "hidden" name = "verifier" value = "0" ></input> 
+		</form>
 	</b>
 </h3>
 {% if users %}
@@ -75,8 +74,6 @@ Only 200 followers per user are taken under consideration. Usually that alone ex
 		<tr>
 			<td class="numeruj"></td>
 			<td>
-
-
 				<form action="/someone/userInfo" method="post">
 				{% csrf_token %}
 					 <button type="submit" 
