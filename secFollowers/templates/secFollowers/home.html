@@ -15,7 +15,7 @@ To see your second hand followers (with log in) click the button below:
 		class="btn btn-default">
 		Contact Twitter account
 	 </button>
-	 <input type = "hidden" name = "verifier" value = "0" ></input> 
+	 <input type = "hidden" name = "verifier" value = "0" />
 </form>
 
 <br/>
@@ -25,76 +25,79 @@ To see your second hand followers (with log in) click the button below:
 <br/>
 
 
-<form action="/login" method="post">
-	{% csrf_token %}
-	{% if not log_status %}	
-		<button type="submit" class="btn btn-default">
-			Log in
-		</button> 
-		<input type = "hidden" name = "verifier" value = "0" ></input> 
-	{% endif %} 
-</form>
-
-<form action="/logout" method="post">
-	{% csrf_token %}
-
-	{% if log_status %}	
-		<button type="submit" class="btn btn-default">
-			Log out
-		</button> 
-
-</form>
+{% if not log_status %}	
+	<form action="/login" method="post">
+		{% csrf_token %}
 
 
+			<button type="submit" class="btn btn-default">
+				Log in
+			</button> 
+			<input type = "hidden" name = "verifier" value = "0" />
+	</form>
+{% endif %} 
 
-<br/>
-<table>
-	<tr>
-		<td>
+{% if log_status %}	
+
+	<form action="/logout" method="post">
+		{% csrf_token %}
+
+			<button type="submit" class="btn btn-default">
+				Log out
+			</button> 
+
+	</form>
+
+
+
+	<br/>
+	<table>
+		<tr>
 			<form action="/userInfo" method="post">
-				{% csrf_token %}
-				 <button
-				 	type="submit" 
-					class="btn btn-default">
-					Check your stats
-				 </button> 
-				 <input type = "hidden" name = "verifier" value = "0" ></input> 
+				<td>
+					{% csrf_token %}
+					 <button
+					 	type="submit" 
+						class="btn btn-default">
+						Check your stats
+					 </button> 
+					 <input type = "hidden" name = "verifier" value = "0" />
+				</td>
 			</form>
-		</td>
-	</tr>
-	<tr>
-		<td>
+		</tr>
+		<tr>
 			<form action="/someone/userInfo.auth" method="post">
-				{% csrf_token %}
-				 <button
-				 	type="submit" 
-					class="btn btn-default">
-					Check someone's stats
-				 </button> 
-		</td>
-		<td>
-			<input type="text" value = "insert screen name" maxlength = "20" name = "screen_name"/>
-			<input type = "hidden" name = "verifier" value = "0" ></input> 
+				<td>
+					{% csrf_token %}
+					 <button
+					 	type="submit" 
+						class="btn btn-default">
+						Check someone's stats
+					 </button> 
+				</td>
+				<td>
+					<input type="text" value = "insert screen name" maxlength = "20" name = "screen_name"/>
+					<input type = "hidden" name = "verifier" value = "0" />
+				</td>
 			</form>
-		</td>
-	</tr>
-	<tr>
-		<td>
+		</tr>
+		<tr>
 			<form action="/someone/followers/followers.auth" method="post">
-				{% csrf_token %}
-				 <button
-				 	type="submit" 
-					class="btn btn-default">
-					Check someone's 2 hand followers
-				 </button> 
-		</td>
-		<td>
-			<input type="text" value = "insert screen name" maxlength = "20" name = "screen_name"/>
-			<input type = "hidden" name = "verifier" value = "0" ></input> 
+				<td>
+					{% csrf_token %}
+					 <button
+					 	type="submit" 
+						class="btn btn-default">
+						Check someone's 2 hand followers
+					 </button> 
+				</td>
+				<td>
+					<input type="text" value = "insert screen name" maxlength = "20" name = "screen_name"/>
+					<input type = "hidden" name = "verifier" value = "0" />
+				</td>
 			</form>
-		</td>
-	</tr>
-</table>
+		</tr>
+	</table>
 {% endif %}
 <br/>
 <hr style = "border-color: #ABABAB"/>
@@ -104,34 +107,34 @@ To see your second hand followers (with log in) click the button below:
 
 <table>
 	<tr>
-		<td>
-			<form action="/someone/userInfo" method="post">
-			{% csrf_token %}
-			<button
-				type="submit" 
-				class="btn btn-default">
-				Check someone's stats
-			</button> 
-		</td>
-		<td>
-			<input type="text" value = "insert screen name" maxlength = "20" name = "screen_name"/>
-			</form>
-		</td>
+		<form action="/someone/userInfo" method="post">
+			<td>
+				{% csrf_token %}
+				<button
+					type="submit" 
+					class="btn btn-default">
+					Check someone's stats
+				</button> 
+			</td>
+			<td>
+				<input type="text" value = "insert screen name" maxlength = "20" name = "screen_name"/>
+			</td>
+		</form>
 	</tr>
 	<tr>
-		<td>
-			<form action="/someone/followers/followers" method="post">
+		<form action="/someone/followers/followers" method="post">
+			<td>
 			{% csrf_token %}
 				 <button
 				 	type="submit" 
 					class="btn btn-default">
 					Check someone's 2 hand followers
 				</button> 
-		</td>
-		<td>
+			</td>
+			<td>
 				<input type="text" value = "insert screen name" maxlength = "20" name = "screen_name"/>
-			</form>
-		</td>
+			</td>
+		</form>
 	</tr>
 </table>
 

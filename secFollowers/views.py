@@ -9,7 +9,7 @@ def authenticate(urlFunc):
     def decoMorreno(request):
         
         if cmp(request.POST['verifier'], '0') == 0:
-            # pdb.set_trace()
+            
             auth = twitterAuth.getAuthHandlerStep1(request)
 
             if isinstance(auth, twython.Twython):
@@ -24,9 +24,7 @@ def authenticate(urlFunc):
             twitter = twitterAuth.getAuthHandlerStep2(request)
             return urlFunc(request, twitter)
 
-        # auth['auth_url']:
         else:
-            # pdb.set_trace()
             return render(request, 'secFollowers/errorSite.html', {'mesg' : 'unknown error'})
     return decoMorreno
 
@@ -84,6 +82,7 @@ def secFollowers(request):
 
 def getUserInfo(request):
     user_data = twitterAPI.basicUserData(request, request.POST['screen_name'], None)
+
     return render(request, 'secFollowers/userInfo.html', user_data)
 
 
